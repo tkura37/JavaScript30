@@ -6,6 +6,12 @@ function playSound(e) {
     if (!key || !sound) {
         return;
     }
+    if (!(key instanceof HTMLDivElement)) {
+        return;
+    }
+    if (!(sound instanceof HTMLAudioElement)) {
+        return;
+    }
     if (key.classList.contains("playing")) {
         key.classList.remove("playing");
         return;
