@@ -3,7 +3,11 @@ const minHand = document.querySelector(".min-hand");
 const secondHand = document.querySelector(".second-hand");
 const degreeOffset = 90;
 
-function setDate() {
+function isHTMLElement(element: Element | null): element is HTMLElement {
+  return element instanceof HTMLElement;
+}
+
+function setDate(): void {
   const now = new Date();
   const hours = now.getHours();
   const minutes = now.getMinutes();
@@ -13,9 +17,17 @@ function setDate() {
   const minutesDegrees = (minutes / 60) * 360 + degreeOffset;
   const secondsDegrees = (seconds / 60) * 360 + degreeOffset;
 
-  hourHand.style.transform = `rotate(${hoursDegrees}deg)`;
-  minHand.style.transform = `rotate(${minutesDegrees}deg)`;
-  secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
+  if (
+    isHTMLElement(hourHand) &&
+    isHTMLElement(minHand) &&
+    isHTMLElement(secondHand)
+  ) {
+    hourHand.style.transform = `rotate(${hoursDegrees}deg)`;
+    minHand.style.transform = `rotate(${minutesDegrees}deg)`;
+    secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
+  } else {
+    console.error("時計の針の要素が見つかりませんでした");
+  }
 }
 
 setDate();
